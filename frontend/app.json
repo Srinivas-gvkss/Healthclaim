@@ -1,0 +1,25 @@
+{
+  "expo": {
+    "name": "Healthcare Insurance App",
+    "slug": "healthcare-insurance-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "backgroundColor": "#007AFF",
+      "resizeMode": "contain"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.healthcare.insuranceapp"
+    },
+    "android": {
+      "package": "com.healthcare.insuranceapp",
+      "adaptiveIcon": {
+        "backgroundColor": "#007AFF"
+      }
+    },
+    "platforms": ["ios", "android", "web"]
+  }
+}
+

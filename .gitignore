@@ -1,0 +1,304 @@
+# =============================================================================
+# ROOT .gitignore for Healthcare Insurance Application
+# =============================================================================
+
+# =============================================================================
+# Node.js / React Native / Frontend
+# =============================================================================
+
+# Dependencies
+node_modules/
+**/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json.bak
+
+# Expo
+.expo/
+.expo-shared/
+dist/
+web-build/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+.env.production
+.env.development
+
+# Build outputs
+build/
+*.jsbundle
+
+# =============================================================================
+# Java / Maven / Spring Boot / Backend
+# =============================================================================
+
+# Maven
+target/
+**/target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# Compiled class files
+*.class
+
+# Package Files
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# =============================================================================
+# IDEs and Editors
+# =============================================================================
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# Eclipse
+.classpath
+.project
+.settings/
+bin/
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# NetBeans
+nbproject/private/
+nbbuild/
+nbdist/
+.nb-gradle/
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# =============================================================================
+# Operating Systems
+# =============================================================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+
+# =============================================================================
+# SECURITY - Sensitive Files (NEVER COMMIT!)
+# =============================================================================
+
+# Configuration files with sensitive data
+**/application-local.properties
+**/application-secret.properties
+**/application-dev.properties
+**/*-secret.yml
+**/*-secret.yaml
+
+# Database credentials
+**/database.properties
+**/datasource.properties
+
+# JWT and security keys
+**/jwt-secret.txt
+**/jwt.key
+**/*.key
+**/*.pem
+**/*.p12
+**/*.jks
+**/*.keystore
+!**/debug.keystore
+
+# API Keys and Tokens
+**/api-keys.txt
+**/tokens.txt
+
+# =============================================================================
+# Logs
+# =============================================================================
+
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# =============================================================================
+# Temporary Files
+# =============================================================================
+
+tmp/
+temp/
+*.tmp
+*.temp
+*.cache
+.cache/
+
+# =============================================================================
+# Testing
+# =============================================================================
+
+# Coverage reports
+coverage/
+*.lcov
+.nyc_output/
+*.coverage
+htmlcov/
+
+# Test outputs
+test-results/
+junit-reports/
+
+# =============================================================================
+# Database
+# =============================================================================
+
+# H2 Database files
+*.h2.db
+*.trace.db
+*.mv.db
+
+# SQLite
+*.sqlite
+*.sqlite3
+*.db
+
+# =============================================================================
+# Generated Files
+# =============================================================================
+
+# Generated source files
+**/generated-sources/
+**/generated-test-sources/
+**/generated/
+
+# API Documentation
+**/api-docs/
+**/swagger-ui/
+
+# =============================================================================
+# Mobile Specific (iOS/Android)
+# =============================================================================
+
+# iOS
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata
+*.xccheckout
+*.moved-aside
+DerivedData
+*.hmap
+*.ipa
+*.xcuserstate
+project.xcworkspace
+/ios/Pods/
+
+# Android
+*.apk
+*.aab
+*.hprof
+.gradle/
+local.properties
+.cxx/
+
+# =============================================================================
+# Documentation (Optional - uncomment if you don't want to commit these)
+# =============================================================================
+
+# Uncomment below if you don't want to commit generated documentation
+# *.pdf
+# *.docx
+# **/docs/generated/
+
+# =============================================================================
+# Miscellaneous
+# =============================================================================
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Lock files (optional - some teams commit these)
+# Uncomment if you don't want to commit lock files
+# package-lock.json
+# yarn.lock
+
+# =============================================================================
+# Project Specific
+# =============================================================================
+
+# Test/utility scripts that shouldn't be committed
+**/PasswordHashGenerator.class
+**/PasswordHashGenerator.java
+**/PasswordPerformanceTest.java
+**/reset_database.sql
+**/test-utils/
+**/dev-scripts/
+
+# Postman collections with sensitive data (keep the main ones, ignore local copies)
+*-local.postman_collection.json
+*-dev.postman_environment.json
+
+# =============================================================================
+# Build and Deployment
+# =============================================================================
+
+# Docker
+.dockerignore.local
+docker-compose.override.yml
+
+# CI/CD
+.gitlab-ci-local.yml
+.github/workflows/local-*.yml
+
+# =============================================================================
+# END OF .gitignore
+# =============================================================================
+

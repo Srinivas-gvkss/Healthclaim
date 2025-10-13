@@ -1,0 +1,24 @@
+# =============================================================================
+# Local Development Configuration EXAMPLE
+# =============================================================================
+# INSTRUCTIONS:
+# 1. Copy this file to: application-local.properties
+# 2. Update the values with your actual local configuration
+# 3. NEVER commit application-local.properties to git!
+# =============================================================================
+
+# Database Configuration for Local Development
+spring.datasource.password=YOUR_DATABASE_PASSWORD_HERE
+
+# JWT Secret (Generate a strong secret key)
+# Use: openssl rand -base64 64
+jwt.secret=YOUR_STRONG_JWT_SECRET_KEY_HERE_MINIMUM_512_BITS
+
+# Email Configuration (Optional for local dev)
+spring.mail.host=localhost
+spring.mail.port=1025
+spring.mail.username=dev@localhost
+spring.mail.password=dev
+
+# Note: In production, ALL these should be set via environment variables
+

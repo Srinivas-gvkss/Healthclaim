@@ -1,0 +1,62 @@
+# =============================================================================
+# User Service .gitignore
+# =============================================================================
+
+# Maven build artifacts
+target/
+*.class
+
+# =============================================================================
+# CRITICAL - Security Files (NEVER COMMIT!)
+# =============================================================================
+
+# Local configuration with database passwords
+application-local.properties
+application-secret.properties
+application-dev.properties
+
+# Database credentials
+database.properties
+datasource.properties
+
+# JWT secrets
+jwt-secret.txt
+jwt.key
+
+# Keystore files
+*.key
+*.pem
+*.p12
+*.jks
+*.keystore
+!debug.keystore
+
+# =============================================================================
+# Test and Development Utilities (DO NOT COMMIT!)
+# =============================================================================
+
+# These are utility files for development only
+PasswordHashGenerator.class
+PasswordHashGenerator.java
+PasswordPerformanceTest.java
+reset_database.sql
+
+# Any test data files
+test-data/
+sample-data/
+
+# =============================================================================
+# IDE
+# =============================================================================
+
+.idea/
+*.iml
+.vscode/
+.DS_Store
+
+# =============================================================================
+# Logs
+# =============================================================================
+
+*.log
+logs/
