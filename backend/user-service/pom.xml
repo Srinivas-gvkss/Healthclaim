@@ -4,14 +4,14 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.gvkss.patil</groupId>
-		<artifactId>ticketing-system</artifactId>
+		<artifactId>healthcare-claim-system</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<groupId>com.gvkss.patil</groupId>
 	<artifactId>user-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>user-service</name>
-	<description>User Service for IT Support Ticketing System</description>
+	<description>User Service for Healthcare Insurance Claim System</description>
 	<url/>
 	<licenses>
 		<license/>

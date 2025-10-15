@@ -7,14 +7,14 @@
     
     <parent>
         <groupId>com.gvkss.patil</groupId>
-        <artifactId>ticketing-system</artifactId>
+        <artifactId>healthcare-claim-system</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     
     <artifactId>service-discovery</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>service-discovery</name>
-    <description>Eureka Service Discovery for IT Support Ticketing System</description>
+    <description>Eureka Service Discovery for Healthcare Insurance Claim System</description>
     
     <dependencies>
         <dependency>

@@ -7,14 +7,14 @@
     
     <parent>
         <groupId>com.gvkss.patil</groupId>
-        <artifactId>ticketing-system</artifactId>
+        <artifactId>healthcare-claim-system</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     
     <artifactId>api-gateway</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>api-gateway</name>
-    <description>API Gateway for IT Support Ticketing System</description>
+    <description>API Gateway for Healthcare Insurance Claim System</description>
     
     <dependencies>
         <dependency>

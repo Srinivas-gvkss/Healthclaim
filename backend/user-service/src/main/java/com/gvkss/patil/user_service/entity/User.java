@@ -13,13 +13,14 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * User entity representing users in the IT Support Ticketing System.
- * This entity stores user information, authentication details, and relationships.
+ * User entity representing users in the Healthcare Insurance Claim System.
+ * This entity stores user information, authentication details, and healthcare-specific data.
  * 
  * @author gvkss team
  * @version 1.0
@@ -111,6 +112,65 @@ public class User {
     @Size(max = 100, message = "Insurance policy number must not exceed 100 characters")
     @Column(name = "insurance_policy_number", length = 100)
     private String insurancePolicyNumber;
+    
+    /**
+     * Date of birth
+     */
+    @Column(name = "date_of_birth")
+    private LocalDate dateOfBirth;
+    
+    /**
+     * Gender
+     */
+    @Size(max = 10, message = "Gender must not exceed 10 characters")
+    @Column(name = "gender", length = 10)
+    private String gender;
+    
+    /**
+     * Address
+     */
+    @Column(name = "address", columnDefinition = "TEXT")
+    private String address;
+    
+    /**
+     * Emergency contact name
+     */
+    @Size(max = 100, message = "Emergency contact name must not exceed 100 characters")
+    @Column(name = "emergency_contact_name", length = 100)
+    private String emergencyContactName;
+    
+    /**
+     * Emergency contact phone
+     */
+    @Size(max = 20, message = "Emergency contact phone must not exceed 20 characters")
+    @Column(name = "emergency_contact_phone", length = 20)
+    private String emergencyContactPhone;
+    
+    /**
+     * Insurance provider
+     */
+    @Size(max = 100, message = "Insurance provider must not exceed 100 characters")
+    @Column(name = "insurance_provider", length = 100)
+    private String insuranceProvider;
+    
+    /**
+     * Blood type
+     */
+    @Size(max = 5, message = "Blood type must not exceed 5 characters")
+    @Column(name = "blood_type", length = 5)
+    private String bloodType;
+    
+    /**
+     * Allergies
+     */
+    @Column(name = "allergies", columnDefinition = "TEXT")
+    private String allergies;
+    
+    /**
+     * Medical conditions
+     */
+    @Column(name = "medical_conditions", columnDefinition = "TEXT")
+    private String medicalConditions;
     
     /**
      * User's status

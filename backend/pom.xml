@@ -6,18 +6,19 @@
     <modelVersion>4.0.0</modelVersion>
     
     <groupId>com.gvkss.patil</groupId>
-    <artifactId>ticketing-system</artifactId>
+    <artifactId>healthcare-claim-system</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>IT Support Ticketing System</name>
-    <description>Multi-module microservices project for IT Support Ticketing System</description>
+    <name>Healthcare Insurance Claim Management System</name>
+    <description>Multi-module microservices project for Healthcare Insurance Claim Management System</description>
     
     <modules>
         <module>api-gateway</module>
         <module>service-discovery</module>
         <module>user-service</module>
-        <module>ticket-service</module>
-        <module>assignment-service</module>
+        <module>claim-service</module>
+        <module>patient-service</module>
+        <module>doctor-service</module>
         <module>notification-service</module>
         <module>reporting-service</module>
     </modules>

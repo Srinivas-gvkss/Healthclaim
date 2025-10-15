@@ -1,0 +1,11 @@
+{
+  "firstName": "Dr. John",
+  "lastName": "Smith",
+  "email": "dr.john.smith@test.com",
+  "phoneNumber": "+1234567890",
+  "password": "TestPassword123",
+  "role": "doctor",
+  "medicalLicenseNumber": "MD123456",
+  "specialty": "Cardiology"
+}
+

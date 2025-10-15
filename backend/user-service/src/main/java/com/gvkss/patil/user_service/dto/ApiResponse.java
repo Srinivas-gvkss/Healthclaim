@@ -28,6 +28,11 @@ public class ApiResponse<T> {
     private String status;
     
     /**
+     * Success flag for frontend compatibility
+     */
+    private Boolean success;
+    
+    /**
      * HTTP status code
      */
     private int statusCode;
@@ -73,6 +78,7 @@ public class ApiResponse<T> {
     public static <T> ApiResponse<T> success(T data) {
         return ApiResponse.<T>builder()
                 .status("success")
+                .success(true)
                 .statusCode(200)
                 .message("Operation completed successfully")
                 .data(data)
@@ -91,6 +97,7 @@ public class ApiResponse<T> {
     public static <T> ApiResponse<T> success(T data, String message) {
         return ApiResponse.<T>builder()
                 .status("success")
+                .success(true)
                 .statusCode(200)
                 .message(message)
                 .data(data)
@@ -110,6 +117,7 @@ public class ApiResponse<T> {
     public static <T> ApiResponse<T> success(T data, String message, int statusCode) {
         return ApiResponse.<T>builder()
                 .status("success")
+                .success(true)
                 .statusCode(statusCode)
                 .message(message)
                 .data(data)
@@ -128,6 +136,7 @@ public class ApiResponse<T> {
     public static <T> ApiResponse<T> error(String message, int statusCode) {
         return ApiResponse.<T>builder()
                 .status("error")
+                .success(false)
                 .statusCode(statusCode)
                 .message(message)
                 .timestamp(LocalDateTime.now())
@@ -229,6 +238,7 @@ public class ApiResponse<T> {
     public static <T> ApiResponse<T> created(T data, String message) {
         return ApiResponse.<T>builder()
                 .status("success")
+                .success(true)
                 .statusCode(201)
                 .message(message)
                 .data(data)

@@ -8,6 +8,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 /**
  * DTO for user signup request.
  * Contains all required information for user registration.
@@ -92,4 +94,28 @@ public class SignupRequest {
      */
     @Size(max = 100, message = "Insurance policy number must not exceed 100 characters")
     private String insurancePolicyNumber;
+    
+    // Healthcare-specific fields
+    private LocalDate dateOfBirth;
+    
+    @Size(max = 10, message = "Gender must not exceed 10 characters")
+    private String gender;
+    
+    private String address;
+    
+    @Size(max = 100, message = "Emergency contact name must not exceed 100 characters")
+    private String emergencyContactName;
+    
+    @Size(max = 20, message = "Emergency contact phone must not exceed 20 characters")
+    private String emergencyContactPhone;
+    
+    @Size(max = 100, message = "Insurance provider must not exceed 100 characters")
+    private String insuranceProvider;
+    
+    @Size(max = 5, message = "Blood type must not exceed 5 characters")
+    private String bloodType;
+    
+    private String allergies;
+    
+    private String medicalConditions;
 }

@@ -4,7 +4,7 @@ import { Platform } from 'react-native';
  * Environment configuration for API endpoints
  * 
  * Android Emulator: Use 10.0.2.2 to access host machine's localhost
- * iOS Simulator: Use localhost
+ * iOS Simul ator: Use localhost
  * Physical Device: Use your computer's IP address (e.g., 192.168.1.100)
  * 
  * To find your IP address:
@@ -15,13 +15,13 @@ import { Platform } from 'react-native';
 // Development configurations
 const DEV_CONFIG = {
   // For Android Emulator (10.0.2.2 maps to host's localhost)
-  ANDROID_API_URL: 'http://10.0.2.2:8080/api',
+  ANDROID_API_URL: 'http://10.0.2.2:8082/api',
   
   // For iOS Simulator
-  IOS_API_URL: 'http://localhost:8080/api',
+  IOS_API_URL: 'http://localhost:8082/api',
   
   // For Physical Device (replace with your computer's IP address)
-  PHYSICAL_DEVICE_API_URL: 'http://192.168.1.100:8080/api',
+  PHYSICAL_DEVICE_API_URL: 'http://192.168.1.100:8082/api',
 };
 
 // Production configuration (replace with your production API URL)

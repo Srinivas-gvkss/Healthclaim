@@ -141,6 +141,15 @@ public class AuthService {
                 .medicalLicenseNumber(signupRequest.getMedicalLicenseNumber())
                 .specialty(signupRequest.getSpecialty())
                 .insurancePolicyNumber(signupRequest.getInsurancePolicyNumber())
+                .dateOfBirth(signupRequest.getDateOfBirth())
+                .gender(signupRequest.getGender())
+                .address(signupRequest.getAddress())
+                .emergencyContactName(signupRequest.getEmergencyContactName())
+                .emergencyContactPhone(signupRequest.getEmergencyContactPhone())
+                .insuranceProvider(signupRequest.getInsuranceProvider())
+                .bloodType(signupRequest.getBloodType())
+                .allergies(signupRequest.getAllergies())
+                .medicalConditions(signupRequest.getMedicalConditions())
                 .status(UserStatus.ACTIVE)
                 .enabled(true)
                 .accountNonLocked(true)
@@ -189,9 +198,10 @@ public class AuthService {
                 }
                 break;
             case "patient":
-                if (signupRequest.getInsurancePolicyNumber() == null || signupRequest.getInsurancePolicyNumber().isBlank()) {
-                    throw new IllegalArgumentException("Insurance policy number is required for patients");
-                }
+                // Insurance policy number is optional for patients - can be added later
+                // if (signupRequest.getInsurancePolicyNumber() == null || signupRequest.getInsurancePolicyNumber().isBlank()) {
+                //     throw new IllegalArgumentException("Insurance policy number is required for patients");
+                // }
                 break;
             case "admin":
             case "insurance_provider":

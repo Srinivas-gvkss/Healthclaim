@@ -28,21 +28,27 @@ spring:
             add-to-simple-request-headers: true
       routes:
         - id: user-service
-          uri: lb://user-service
+          uri: lb://healthcare-user-service
           predicates:
             - Path=/api/users/**,/api/auth/**,/api/departments/**,/api/roles/**
           filters:
             - RewritePath=/api/(?<segment>.*), /api/$\{segment}
-        - id: ticket-service
-          uri: lb://ticket-service
+        - id: claim-service
+          uri: lb://claim-service
           predicates:
-            - Path=/api/tickets/**
+            - Path=/api/claims/**
           filters:
             - RewritePath=/api/(?<segment>.*), /api/$\{segment}
-        - id: assignment-service
-          uri: lb://assignment-service
+        - id: patient-service
+          uri: lb://patient-service
           predicates:
-            - Path=/api/assignments/**
+            - Path=/api/patients/**
+          filters:
+            - RewritePath=/api/(?<segment>.*), /api/$\{segment}
+        - id: doctor-service
+          uri: lb://doctor-service
+          predicates:
+            - Path=/api/doctors/**
           filters:
             - RewritePath=/api/(?<segment>.*), /api/$\{segment}
         - id: notification-service

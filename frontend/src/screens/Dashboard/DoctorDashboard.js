@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -6,13 +6,26 @@ import {
   ScrollView,
   TouchableOpacity,
   SafeAreaView,
+  Alert,
+  RefreshControl,
 } from 'react-native';
 import { useAuth } from '../../contexts/AuthContext';
 import Button from '../../components/Button';
 import { COLORS, SPACING, FONT_SIZES, BORDER_RADIUS } from '../../utils/constants';
+import api from '../../services/authService';
 
 const DoctorDashboard = ({ navigation }) => {
   const { user, logout } = useAuth();
+  const [stats, setStats] = useState({
+    patientsToday: 0,
+    totalAppointments: 0,
+    pendingClaims: 0,
+    totalPatients: 0
+  });
+  const [todayAppointments, setTodayAppointments] = useState([]);
+  const [pendingClaims, setPendingClaims] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
 
   const handleLogout = async () => {
     try {
@@ -22,24 +35,130 @@ const DoctorDashboard = ({ navigation }) => {
     }
   };
 
+  const loadDashboardData = async () => {
+    try {
+      setLoading(true);
+      // TODO: Replace with actual API calls when backend endpoints are ready
+      // const appointmentsResponse = await api.get('/appointments/today');
+      // const claimsResponse = await api.get('/claims/pending-support');
+      // const statsResponse = await api.get('/doctor/stats');
+      
+      // Mock data for now
+      setStats({
+        patientsToday: 8,
+        totalAppointments: 12,
+        pendingClaims: 5,
+        totalPatients: 156
+      });
+      
+      setTodayAppointments([
+        { id: 1, patientName: 'John Doe', time: '09:00 AM', type: 'Consultation', status: 'Confirmed' },
+        { id: 2, patientName: 'Jane Smith', time: '10:30 AM', type: 'Follow-up', status: 'Pending' },
+        { id: 3, patientName: 'Mike Johnson', time: '02:00 PM', type: 'Check-up', status: 'Confirmed' },
+      ]);
+      
+      setPendingClaims([
+        { id: 1, claimNumber: 'CLM-001', patientName: 'John Doe', amount: '$1,200', priority: 'High' },
+        { id: 2, claimNumber: 'CLM-002', patientName: 'Jane Smith', amount: '$850', priority: 'Medium' },
+      ]);
+    } catch (error) {
+      console.error('Error loading dashboard data:', error);
+      Alert.alert('Error', 'Failed to load dashboard data');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await loadDashboardData();
+    setRefreshing(false);
+  };
+
+  useEffect(() => {
+    loadDashboardData();
+  }, []);
+
   const menuItems = [
-    { id: 1, title: 'My Patients', icon: '👥', description: 'View patient list' },
-    { id: 2, title: 'Appointments', icon: '📅', description: 'Manage appointments' },
-    { id: 3, title: 'Support Claims', icon: '✅', description: 'Review and support claims' },
-    { id: 4, title: 'Medical Records', icon: '📋', description: 'Access patient records' },
-    { id: 5, title: 'Prescriptions', icon: '💊', description: 'Write prescriptions' },
-    { id: 6, title: 'Profile', icon: '👤', description: 'Manage your profile' },
+    { 
+      id: 1, 
+      title: 'My Patients', 
+      icon: '👥', 
+      description: 'View patient list',
+      onPress: () => Alert.alert('Coming Soon', 'My Patients feature will be available soon!')
+    },
+    { 
+      id: 2, 
+      title: 'Appointments', 
+      icon: '📅', 
+      description: 'Manage appointments',
+      onPress: () => Alert.alert('Coming Soon', 'Appointments management will be available soon!')
+    },
+    { 
+      id: 3, 
+      title: 'Support Claims', 
+      icon: '✅', 
+      description: 'Review and support claims',
+      onPress: () => Alert.alert('Coming Soon', 'Support Claims feature will be available soon!')
+    },
+    { 
+      id: 4, 
+      title: 'Medical Records', 
+      icon: '📋', 
+      description: 'Access patient records',
+      onPress: () => Alert.alert('Coming Soon', 'Medical Records feature will be available soon!')
+    },
+    { 
+      id: 5, 
+      title: 'Prescriptions', 
+      icon: '💊', 
+      description: 'Write prescriptions',
+      onPress: () => Alert.alert('Coming Soon', 'Prescriptions feature will be available soon!')
+    },
+    { 
+      id: 6, 
+      title: 'Profile', 
+      icon: '👤', 
+      description: 'Manage your profile',
+      onPress: () => Alert.alert('Coming Soon', 'Profile management will be available soon!')
+    },
   ];
+
+  const getPriorityColor = (priority) => {
+    switch (priority.toLowerCase()) {
+      case 'high': return COLORS.error;
+      case 'medium': return COLORS.warning;
+      case 'low': return COLORS.success;
+      default: return COLORS.textLight;
+    }
+  };
+
+  const getStatusColor = (status) => {
+    switch (status.toLowerCase()) {
+      case 'confirmed': return COLORS.success;
+      case 'pending': return COLORS.warning;
+      case 'cancelled': return COLORS.error;
+      default: return COLORS.textLight;
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <ScrollView 
+        contentContainerStyle={styles.scrollContainer}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
         {/* Header */}
         <View style={styles.header}>
           <View>
             <Text style={styles.greeting}>Welcome, Dr.</Text>
             <Text style={styles.userName}>{user?.firstName} {user?.lastName}</Text>
             <Text style={styles.userRole}>Healthcare Provider</Text>
+            {user?.specialty && (
+              <Text style={styles.specialty}>{user.specialty}</Text>
+            )}
           </View>
           <TouchableOpacity style={styles.profileIcon}>
             <Text style={styles.profileIconText}>
@@ -51,18 +170,56 @@ const DoctorDashboard = ({ navigation }) => {
         {/* Quick Stats */}
         <View style={styles.statsContainer}>
           <View style={styles.statCard}>
-            <Text style={styles.statValue}>0</Text>
+            <Text style={styles.statValue}>{stats.patientsToday}</Text>
             <Text style={styles.statLabel}>Patients Today</Text>
           </View>
           <View style={styles.statCard}>
-            <Text style={styles.statValue}>0</Text>
+            <Text style={styles.statValue}>{stats.totalAppointments}</Text>
             <Text style={styles.statLabel}>Appointments</Text>
           </View>
           <View style={styles.statCard}>
-            <Text style={styles.statValue}>0</Text>
+            <Text style={styles.statValue}>{stats.pendingClaims}</Text>
             <Text style={styles.statLabel}>Pending Claims</Text>
           </View>
         </View>
+
+        {/* Today's Appointments */}
+        {todayAppointments.length > 0 && (
+          <View style={styles.appointmentsContainer}>
+            <Text style={styles.sectionTitle}>Today's Appointments</Text>
+            {todayAppointments.map((appointment) => (
+              <TouchableOpacity key={appointment.id} style={styles.appointmentCard}>
+                <View style={styles.appointmentHeader}>
+                  <Text style={styles.appointmentTime}>{appointment.time}</Text>
+                  <View style={[styles.statusBadge, { backgroundColor: getStatusColor(appointment.status) }]}>
+                    <Text style={styles.statusText}>{appointment.status}</Text>
+                  </View>
+                </View>
+                <Text style={styles.patientName}>{appointment.patientName}</Text>
+                <Text style={styles.appointmentType}>{appointment.type}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        )}
+
+        {/* Pending Claims */}
+        {pendingClaims.length > 0 && (
+          <View style={styles.claimsContainer}>
+            <Text style={styles.sectionTitle}>Claims Requiring Support</Text>
+            {pendingClaims.map((claim) => (
+              <TouchableOpacity key={claim.id} style={styles.claimCard}>
+                <View style={styles.claimHeader}>
+                  <Text style={styles.claimNumber}>{claim.claimNumber}</Text>
+                  <View style={[styles.priorityBadge, { backgroundColor: getPriorityColor(claim.priority) }]}>
+                    <Text style={styles.priorityText}>{claim.priority}</Text>
+                  </View>
+                </View>
+                <Text style={styles.patientName}>{claim.patientName}</Text>
+                <Text style={styles.claimAmount}>{claim.amount}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        )}
 
         {/* Menu Grid */}
         <View style={styles.menuContainer}>
@@ -72,7 +229,7 @@ const DoctorDashboard = ({ navigation }) => {
               <TouchableOpacity
                 key={item.id}
                 style={styles.menuCard}
-                onPress={() => console.log(`Navigate to ${item.title}`)}
+                onPress={item.onPress}
               >
                 <Text style={styles.menuIcon}>{item.icon}</Text>
                 <Text style={styles.menuTitle}>{item.title}</Text>
@@ -209,6 +366,87 @@ const styles = StyleSheet.create({
   },
   logoutButton: {
     marginTop: SPACING.lg,
+  },
+  specialty: {
+    fontSize: FONT_SIZES.xs,
+    color: COLORS.textLight,
+    marginTop: SPACING.xs,
+  },
+  appointmentsContainer: {
+    marginBottom: SPACING.xl,
+  },
+  appointmentCard: {
+    backgroundColor: COLORS.white,
+    padding: SPACING.md,
+    borderRadius: BORDER_RADIUS.lg,
+    marginBottom: SPACING.sm,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  appointmentHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: SPACING.sm,
+  },
+  appointmentTime: {
+    fontSize: FONT_SIZES.md,
+    fontWeight: '600',
+    color: COLORS.text,
+  },
+  appointmentType: {
+    fontSize: FONT_SIZES.sm,
+    color: COLORS.textLight,
+    marginTop: SPACING.xs,
+  },
+  claimsContainer: {
+    marginBottom: SPACING.xl,
+  },
+  claimCard: {
+    backgroundColor: COLORS.white,
+    padding: SPACING.md,
+    borderRadius: BORDER_RADIUS.lg,
+    marginBottom: SPACING.sm,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  claimHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: SPACING.sm,
+  },
+  claimNumber: {
+    fontSize: FONT_SIZES.md,
+    fontWeight: '600',
+    color: COLORS.text,
+  },
+  priorityBadge: {
+    paddingHorizontal: SPACING.sm,
+    paddingVertical: SPACING.xs,
+    borderRadius: BORDER_RADIUS.sm,
+  },
+  priorityText: {
+    fontSize: FONT_SIZES.xs,
+    color: COLORS.white,
+    fontWeight: '600',
+  },
+  patientName: {
+    fontSize: FONT_SIZES.md,
+    fontWeight: '600',
+    color: COLORS.text,
+    marginBottom: SPACING.xs,
+  },
+  claimAmount: {
+    fontSize: FONT_SIZES.lg,
+    fontWeight: 'bold',
+    color: COLORS.secondary,
   },
 });
 
