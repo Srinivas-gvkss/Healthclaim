@@ -5,6 +5,7 @@ import com.gvkss.patil.user_service.dto.UserResponse;
 import com.gvkss.patil.user_service.entity.User;
 import com.gvkss.patil.user_service.enums.UserStatus;
 import com.gvkss.patil.user_service.service.UserService;
+import com.gvkss.patil.user_service.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -19,6 +20,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * User controller for handling user management operations.
@@ -36,6 +40,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     
     private final UserService userService;
+    private final AuthService authService;
     
     /**
      * Get all users with pagination
@@ -578,5 +583,76 @@ public class UserController {
     public static class DepartmentAssignmentRequest {
         @jakarta.validation.constraints.NotNull(message = "Department ID is required")
         private Long departmentId;
+    }
+    
+    /**
+     * Get dashboard data based on user role
+     * 
+     * @return Dashboard data
+     */
+    @GetMapping("/dashboard")
+    @Operation(summary = "Get dashboard data", description = "Get role-specific dashboard data for the current user")
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Dashboard data retrieved successfully"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "401", description = "Unauthorized")
+    })
+    public ResponseEntity<ApiResponse<Map<String, Object>>> getDashboardData() {
+        try {
+            User currentUser = authService.getCurrentUser();
+            Map<String, Object> dashboardData = new HashMap<>();
+            
+            // Get user's primary role
+            String primaryRole = currentUser.getActiveRoles().stream()
+                    .filter(ur -> ur.isPrimary())
+                    .map(ur -> ur.getRoleCode())
+                    .findFirst()
+                    .orElse("patient");
+            
+            // Add basic user info
+            dashboardData.put("user", userService.convertToUserResponse(currentUser));
+            dashboardData.put("role", primaryRole);
+            
+            // Add role-specific data (mock data for now)
+            switch (primaryRole.toLowerCase()) {
+                case "patient":
+                    dashboardData.put("stats", Map.of(
+                        "activeClaims", 3,
+                        "pendingClaims", 2,
+                        "approvedClaims", 8,
+                        "totalClaims", 13
+                    ));
+                    break;
+                case "doctor":
+                    dashboardData.put("stats", Map.of(
+                        "patientsToday", 8,
+                        "totalAppointments", 12,
+                        "pendingClaims", 5,
+                        "totalPatients", 156
+                    ));
+                    break;
+                case "admin":
+                    dashboardData.put("stats", Map.of(
+                        "totalUsers", 1247,
+                        "activeClaims", 89,
+                        "totalDepartments", 12,
+                        "systemHealth", "Good"
+                    ));
+                    break;
+                case "insurance_provider":
+                    dashboardData.put("stats", Map.of(
+                        "pendingReview", 23,
+                        "approvedToday", 8,
+                        "totalClaims", 1247,
+                        "rejectionRate", 12.5
+                    ));
+                    break;
+            }
+            
+            return ResponseEntity.ok(ApiResponse.success(dashboardData, "Dashboard data retrieved successfully"));
+        } catch (Exception e) {
+            log.error("Error getting dashboard data", e);
+            return ResponseEntity.badRequest()
+                    .body(ApiResponse.error("Failed to get dashboard data: " + e.getMessage(), 400));
+        }
     }
 }

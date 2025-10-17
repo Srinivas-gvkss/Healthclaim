@@ -10,28 +10,33 @@ import DoctorDashboard from '../screens/Dashboard/DoctorDashboard';
 import AdminDashboard from '../screens/Dashboard/AdminDashboard';
 import InsuranceProviderDashboard from '../screens/Dashboard/InsuranceProviderDashboard';
 
+// Import additional screens
+import FileClaimScreen from '../screens/Claims/FileClaimScreen';
+import MyClaimsScreen from '../screens/Claims/MyClaimsScreen';
+
 const Stack = createStackNavigator();
 
 /**
  * Role-based Dashboard Component
  */
-const RoleBasedDashboard = () => {
+const RoleBasedDashboard = ({ navigation }) => {
   const { user } = useAuth();
   
-  // Determine which dashboard to show based on user role
+  // Get the primary role from user roles array
   const userRole = user?.roles?.[0] || user?.role || 'patient';
   
+  // Return appropriate dashboard based on user role
   switch (userRole.toLowerCase()) {
     case 'patient':
-      return <PatientDashboard />;
+      return <PatientDashboard navigation={navigation} />;
     case 'doctor':
-      return <DoctorDashboard />;
+      return <DoctorDashboard navigation={navigation} />;
     case 'admin':
-      return <AdminDashboard />;
+      return <AdminDashboard navigation={navigation} />;
     case 'insurance_provider':
-      return <InsuranceProviderDashboard />;
+      return <InsuranceProviderDashboard navigation={navigation} />;
     default:
-      return <PatientDashboard />; // Default fallback
+      return <PatientDashboard navigation={navigation} />;
   }
 };
 
@@ -66,6 +71,27 @@ const AppNavigator = () => {
         name="Dashboard"
         component={RoleBasedDashboard}
         options={{ headerShown: false }}
+      />
+      
+      {/* Claims Screens */}
+      <Stack.Screen
+        name="FileClaim"
+        component={FileClaimScreen}
+        options={{ 
+          title: 'File New Claim',
+          headerStyle: { backgroundColor: COLORS.primary },
+          headerTintColor: COLORS.white,
+        }}
+      />
+      
+      <Stack.Screen
+        name="MyClaims"
+        component={MyClaimsScreen}
+        options={{ 
+          title: 'My Claims',
+          headerStyle: { backgroundColor: COLORS.primary },
+          headerTintColor: COLORS.white,
+        }}
       />
     </Stack.Navigator>
   );

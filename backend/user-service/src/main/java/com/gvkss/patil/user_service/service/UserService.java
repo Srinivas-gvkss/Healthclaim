@@ -468,7 +468,7 @@ public class UserService {
      * @param user The user entity
      * @return User response DTO
      */
-    private UserResponse convertToUserResponse(User user) {
+    public UserResponse convertToUserResponse(User user) {
         List<UserResponse.RoleInfo> roleInfos = user.getActiveRoles().stream()
                 .map(userRole -> UserResponse.RoleInfo.builder()
                         .id(userRole.getRole().getId())
